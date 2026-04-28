@@ -1,5 +1,5 @@
 ## Introduction
-Meet the polished, new ASU Desert CodeSprouts Website. The website was initially created in AI Studio and iterated and polished over by @vickydee.
+Meet the polished, new ASU Desert CodeSprouts Website. The website was initially created in AI Studio and iterated and polished over by [@vickydee](https://github.com/vickydee).
 
 ## Run Locally
 
