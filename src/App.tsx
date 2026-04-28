@@ -63,8 +63,16 @@ const NavLink = ({ children, isActive, onClick }: NavLinkProps) => (
 
 const SectionTitle = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
   <div className="mb-12">
-    {subtitle && <div className="text-asu-maroon font-black text-[10px] uppercase tracking-[0.2em] mb-2">{subtitle}</div>}
-    <h2 className="text-3xl font-black text-asu-grey-900 uppercase tracking-tight">{children}</h2>
+    {subtitle && <div className="text-asu-maroon font-black text-[10px] uppercase tracking-[0.25em] mb-2">{subtitle}</div>}
+    <h2 className="text-4xl font-black text-asu-grey-900 uppercase tracking-tighter leading-none">{children}</h2>
+  </div>
+);
+
+const ImagePlaceholder = ({ label, className = "" }: { label: string, className?: string }) => (
+  <div className={`bg-asu-grey-50 border-2 border-dashed border-asu-grey-200 rounded-xl flex flex-col items-center justify-center text-asu-grey-300 relative overflow-hidden group ${className}`}>
+    <div className="text-4xl mb-3 grayscale mix-blend-multiply opacity-20 group-hover:opacity-40 transition-opacity">📸</div>
+    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-asu-grey-400">{label}</div>
+    <div className="absolute inset-0 bg-asu-maroon/5 opacity-0 group-hover:opacity-100 transition-opacity" />
   </div>
 );
 
@@ -77,24 +85,28 @@ const CampCard = ({ title, age, description, icon, tags, color }: CampCardProps)
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileHover={{ y: -4 }}
-      className={`asu-card flex flex-col justify-between h-full ${!isDesert ? '' : 'border-asu-maroon'}`}
+      className={`asu-card flex flex-col justify-between h-full group ${!isDesert ? '' : 'border-asu-maroon'}`}
     >
       <div>
         <div className="flex items-center justify-between mb-4">
-          <div className="text-asu-grey-600">
+          <div className="text-asu-grey-600 transition-colors group-hover:text-asu-maroon">
             {icon}
           </div>
-          <span className="text-[10px] font-black uppercase tracking-widest bg-asu-grey-50 px-2 py-1 rounded text-asu-grey-600 border border-asu-grey-100">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest bg-asu-grey-50 px-2 py-1 rounded text-asu-grey-600 border border-asu-grey-100">
             {age}
           </span>
         </div>
         
-        <h3 className="text-xl font-bold text-asu-grey-900 mb-2">{title}</h3>
-        <p className="text-sm text-asu-grey-600 mb-6 leading-relaxed">{description}</p>
+        <div className="mb-4 aspect-video rounded-lg overflow-hidden border border-asu-grey-100">
+          <ImagePlaceholder label={`${title} Photo`} className="w-full h-full rounded-none border-none" />
+        </div>
+        
+        <h3 className="text-xl font-bold text-asu-grey-900 mb-2 leading-tight">{title}</h3>
+        <p className="text-sm font-medium text-asu-grey-600 mb-6 leading-relaxed">{description}</p>
         
         <div className="flex flex-wrap gap-2 mb-6">
           {tags.map((tag) => (
-            <span key={tag} className="text-[10px] font-bold text-asu-grey-500 bg-asu-grey-50 px-2 py-0.5 rounded border border-asu-grey-100 uppercase tracking-tighter">
+            <span key={tag} className="text-[9px] font-black text-asu-grey-500 bg-asu-grey-50 px-2 py-0.5 rounded border border-asu-grey-100 uppercase tracking-tighter">
               {tag}
             </span>
           ))}
@@ -127,19 +139,19 @@ const HomeView = ({ setView }: { setView: (v: View) => void }) => (
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-black text-asu-grey-900 leading-[1.05] mb-8">
-              Igniting the Next Generation of Engineers.
+              Igniting the <span className="italic text-asu-maroon tracking-normal">Next Generation</span> of Engineers
             </h1>
             
             <p className="text-xl text-asu-grey-600 mb-10 leading-relaxed max-w-xl">
-              Desert Code provides K-12 students with hands-on experience in robotics, 
+              Desert Code provides middle school and high school students with hands-on experience in robotics, 
               game development, and modern web technologies.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="asu-button-primary shadow-lg shadow-asu-maroon/20">
+              <button className="asu-button-primary shadow-lg shadow-asu-maroon/20 px-8">
                 Register for Camp
               </button>
-              <button onClick={() => setView('program')} className="asu-button-outline">
+              <button onClick={() => setView('program')} className="asu-button-outline px-8">
                 View Curriculum
               </button>
             </div>
@@ -148,11 +160,15 @@ const HomeView = ({ setView }: { setView: (v: View) => void }) => (
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="hidden lg:block aspect-video bg-asu-grey-50 border-2 border-dashed border-asu-grey-200 rounded-xl flex flex-col items-center justify-center text-asu-grey-200"
+            className="hidden lg:block aspect-video bg-asu-grey-50 border-2 border-dashed border-asu-grey-200 rounded-xl relative overflow-hidden group shadow-2xl shadow-asu-maroon/5"
           >
-            <div className="text-6xl mb-4">🤖</div>
-            <div className="text-asu-grey-600 font-bold">Interactive Robotics Module</div>
-            <div className="text-asu-grey-400 text-xs">ASU Brickyard Engineering Field Labs</div>
+            <ImagePlaceholder label="Hero Visual Content" className="w-full h-full rounded-none border-none" />
+            <div className="absolute bottom-6 left-6 right-6 p-4 glass-morphism rounded-lg border border-white/20 bg-white/40 backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                 <div className="w-2 h-2 bg-asu-green rounded-full animate-ping" />
+                 <span className="text-[10px] font-black text-asu-grey-900 uppercase tracking-widest">ASU Polytechnic Lab Live</span>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -163,7 +179,7 @@ const HomeView = ({ setView }: { setView: (v: View) => void }) => (
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between mb-12">
           <SectionTitle>Available Programs</SectionTitle>
-          <div className="bg-asu-green text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 mb-12">
+          <div className="bg-asu-green text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 shrink-0">
             <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
             Registration Open
           </div>
@@ -194,6 +210,39 @@ const HomeView = ({ setView }: { setView: (v: View) => void }) => (
             tags={['Python', 'React', 'Gemini AI']}
             color="desert"
           />
+        </div>
+      </div>
+    </section>
+
+    {/* Gallery / Media Section */}
+    <section className="py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <SectionTitle subtitle="Camp Experience">Memories & Media</SectionTitle>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="col-span-2 row-span-2">
+            <ImagePlaceholder label="Competition Hall" className="w-full h-full min-h-[400px]" />
+          </div>
+          <div>
+            <ImagePlaceholder label="Robot Construction" className="w-full h-full aspect-square" />
+          </div>
+          <div>
+            <ImagePlaceholder label="Closing Ceremony" className="w-full h-full aspect-square" />
+          </div>
+          <div className="col-span-2">
+             <div className="p-8 bg-asu-maroon rounded-xl flex flex-col justify-center h-full text-white">
+                <h4 className="text-xl font-bold mb-4">Featured in the News</h4>
+                <div className="space-y-4">
+                   <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                      <span className="text-xs font-medium opacity-80 italic">ASU News Video</span>
+                      <ExternalLink size={14} className="opacity-60" />
+                   </div>
+                   <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                      <span className="text-xs font-medium opacity-80 italic">CBS News Highlight</span>
+                      <ExternalLink size={14} className="opacity-60" />
+                   </div>
+                </div>
+             </div>
+          </div>
         </div>
       </div>
     </section>
@@ -372,6 +421,35 @@ const BrainIcon = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.54Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.54Z"/></svg>
 );
 
+// --- Header Components ---
+
+const AsuUnitHeader = () => (
+  <div className="bg-white border-b border-asu-grey-100">
+    <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row lg:items-center py-6 lg:h-[90px] gap-6 lg:gap-12">
+      <a href="https://asu.edu" className="block shrink-0">
+        <img 
+          src="https://github.com/vickydee/ASU-Desert-CodeSprouts-Website/blob/main/src/asu%20wide%20frame.png?raw=true" 
+          alt="ASU" 
+          className="h-10 w-auto hidden lg:block"
+        />
+        <img 
+          src="https://github.com/vickydee/ASU-Desert-CodeSprouts-Website/blob/main/src/asu%20shortened%20frame.png?raw=true" 
+          alt="ASU" 
+          className="h-10 w-auto block lg:hidden"
+        />
+      </a>
+      <div className="flex flex-col justify-center">
+        <a href="https://engineering.asu.edu" className="text-xs font-bold uppercase tracking-widest text-asu-grey-600 hover:text-asu-maroon leading-tight mb-0.5 hidden lg:block">
+          Ira A. Fulton Schools of Engineering
+        </a>
+        <a href="https://scai.engineering.asu.edu" className="text-lg font-bold tracking-tighter text-asu-grey-900 leading-none">
+          School of Computing and Augmented Intelligence
+        </a>
+      </div>
+    </div>
+  </div>
+);
+
 export default function App() {
   const [view, setView] = useState<View>('home');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -400,23 +478,25 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-sans bg-asu-grey-50">
+      <AsuUnitHeader />
+      
       {/* Navigation */}
       <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-50 transition-all duration-300 ${
           isScrolled || isMobileMenuOpen ? 'bg-asu-maroon/95 backdrop-blur-sm' : 'bg-asu-maroon'
         } border-b-4 border-asu-gold text-white`}
       >
-        <div className="max-w-7xl mx-auto px-6 h-[70px] flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 h-[60px] flex items-center justify-between">
           <div 
             onClick={() => setView('home')}
-            className="flex items-center gap-3 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-9 h-9 bg-asu-gold rounded-full flex items-center justify-center text-asu-maroon font-bold text-lg">
+            <div className="w-8 h-8 bg-asu-gold rounded-full flex items-center justify-center text-asu-maroon font-black text-base transition-transform group-hover:scale-110">
               S
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-black text-xl tracking-tighter uppercase">SPROUTS</span>
-              <span className="text-[10px] font-bold tracking-widest opacity-80">CODING CAMP</span>
+              <span className="font-bold text-xl tracking-tighter leading-none">Desert CodeSprouts</span>
+              <span className="text-[10px] font-bold opacity-80 mt-0.5">CODING CAMP</span>
             </div>
           </div>
           
@@ -425,17 +505,17 @@ export default function App() {
             <NavLink isActive={view === 'program'} onClick={() => setView('program')}>Curriculum</NavLink>
             <NavLink isActive={view === 'schedule'} onClick={() => setView('schedule')}>Schedule</NavLink>
             <NavLink isActive={view === 'faq'} onClick={() => setView('faq')}>FAQ</NavLink>
-            <button className="border border-white/40 px-4 py-1 rounded text-sm font-bold hover:bg-white hover:text-asu-maroon transition-all">
+            <button className="border border-white/20 px-4 py-1.5 rounded-sm text-[11px] font-black uppercase tracking-widest hover:bg-white hover:text-asu-maroon transition-all">
               Login
             </button>
           </div>
 
           {/* Mobile Menu Toggle */}
           <button 
-            className="md:hidden text-white"
+            className="md:hidden text-white p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X /> : <Menu />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
@@ -446,13 +526,13 @@ export default function App() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden bg-asu-maroon border-t border-white/10 overflow-hidden"
+              className="md:hidden bg-asu-maroon border-t border-white/10 overflow-hidden shadow-2xl"
             >
               <div className="flex flex-col p-6 gap-6">
                 <NavLink isActive={view === 'program'} onClick={() => setView('program')}>Curriculum</NavLink>
                 <NavLink isActive={view === 'schedule'} onClick={() => setView('schedule')}>Schedule</NavLink>
                 <NavLink isActive={view === 'faq'} onClick={() => setView('faq')}>FAQ</NavLink>
-                <button className="bg-asu-gold text-asu-maroon py-3 rounded font-bold uppercase tracking-widest text-xs">
+                <button className="bg-asu-gold text-asu-maroon py-3 rounded-sm font-black uppercase tracking-[0.2em] text-[10px]">
                   Student Login
                 </button>
               </div>
@@ -461,7 +541,7 @@ export default function App() {
         </AnimatePresence>
       </nav>
 
-      <main className="pt-[70px]">
+      <main>
         {renderView()}
       </main>
 
