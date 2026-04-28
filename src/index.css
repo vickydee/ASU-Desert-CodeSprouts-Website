@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+
+  --color-asu-maroon: #8C1D40;
+  --color-asu-gold: #FFC627;
+  --color-asu-grey-50: #F3F4F6;
+  --color-asu-grey-100: #E5E7EB;
+  --color-asu-grey-200: #D1D5DB;
+  --color-asu-grey-600: #4B5563;
+  --color-asu-grey-900: #111827;
+  
+  --color-asu-green: #059669;
+}
+
+@layer base {
+  body {
+    @apply bg-asu-grey-50 text-asu-grey-900 antialiased;
+  }
+}
+
+.asu-card {
+  @apply bg-white rounded-lg p-6 shadow-sm border-l-4 border-asu-gold transition-all hover:shadow-md;
+}
+
+.asu-button-primary {
+  @apply bg-asu-maroon text-white px-6 py-3 rounded-md font-bold hover:opacity-90 transition-opacity;
+}
+
+.asu-button-outline {
+  @apply bg-white text-asu-maroon border border-asu-grey-200 px-6 py-3 rounded-md font-bold hover:bg-asu-grey-50 transition-colors;
+}
