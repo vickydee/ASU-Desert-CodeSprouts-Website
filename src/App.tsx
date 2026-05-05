@@ -139,12 +139,12 @@ const HomeView = ({ setView }: { setView: (v: View) => void }) => (
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-black text-asu-grey-900 leading-[1.05] mb-8">
-              Igniting the <span className="italic text-asu-maroon tracking-normal">Next Generation</span> of Engineers
+              Igniting the <span className="italic text-asu-maroon tracking-normal">Next Generation</span> of Robotics.
             </h1>
             
             <p className="text-xl text-asu-grey-600 mb-10 leading-relaxed max-w-xl">
-              Desert Code provides middle school and high school students with hands-on experience in robotics, 
-              game development, and modern web technologies.
+              ASU Robotics Camps provide middle school and high school students with hands-on experience in engineering design, 
+              robotics programming, and computer science.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -495,8 +495,8 @@ export default function App() {
               S
             </div>
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-xl tracking-tighter leading-none">Desert CodeSprouts</span>
-              <span className="text-[10px] font-bold opacity-80 mt-0.5">CODING CAMP</span>
+              <span className="font-bold text-xl tracking-tighter leading-none">ASU Robotics Camps</span>
+              <span className="text-[13px] font-bold opacity-80 mt-0.5">SUMMER 2026</span>
             </div>
           </div>
           
